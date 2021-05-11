@@ -1,0 +1,94 @@
+// Configuration file for nextflow analysis pipeline 
+
+/*  ====================================
+ *  singleproj_bulkRNA_fromFastq_v201124
+ *  ====================================
+*/
+
+
+params {
+
+       /* =====================
+       *   User defined params:
+       *  =====================
+       */
+
+        projid = "2020_XXX"
+	metaID = "2020_XXX"
+
+	// Folder of experiment raw data (set workdir to shared folder on nas-sync)
+	fastq = "/projects/fs1/nas-sync/upload/XXX"
+	workdir = "/projects/fs1/percebe/tests/${projid}/"
+
+	// Project ID (Can be any)
+	ssheet = "${workdir}/samplesheet_XXX.csv"
+
+	// Species
+	species = "Human" // Set human or mouse 
+
+	// set Align/Quant
+	align = true
+	quant = true
+	qcOnly = false
+	
+	// References
+	mouse_gtf = "/projects/fs1/nas-sync/share/genomicData/mm10/annotation/gtf/gencode/gencode.vM25.annotation.gtf"
+	mouse_genome = "/projects/fs1/nas-sync/share/genomicData/mm10/STAR/star_ref_index/"
+	human_gtf = "/projects/fs1/nas-sync/share/genomicData/hg38/annotation/gtf/gencode/v33/gencode.v33.annotation.gtf"
+        human_genome = "/projects/fs1/nas-sync/share/genomicData/hg38/STAR/star_2.7.1a/star_ref_index/"
+        custom_genome = // Insert custom genome
+        custom_gtf = // Insert custom gtf
+ 
+        // FeatureCounts params
+        stranded = 0
+        feature = 'exon'
+	paired = '-p' // leave blank ('') if not paired end. set to ('-p') if paired end
+
+       /* =============================
+       *   Automatically set params:
+       *  =============================
+       */
+
+	// Sample Sheet (Must be in directory defined above!)
+	sheetType = "normal"
+
+	// Directory to store fastq data etc.
+	// If not store in same dir where you run the pipeline, give entire path.
+ 	outDir = "${workdir}/CTG_output/"
+
+	// Lanes (Set 0 if all lanes should be included!)
+	lanes = 0
+
+	// Automatic assignment
+	sheet = "$ssheet"
+	fqDir = "${fastq}"
+	qcDir = "${outDir}QCdir/"
+	bamDir = "${outDir}STAR/"
+	quantDir = "${outDir}Quant/"
+}
+
+// Define SLURM specs
+// note that star version in sif-container shold match STAR genome reference (above)
+process {
+	executor='slurm'
+	container = '/projects/fs1/nas-sync/share/containers_singularity/bulkRNA/bulkRNA_STARv2.7.1a.sif'
+	time='60h'
+	cpus='16'
+	memory='100 GB'
+
+	withName:STAR {
+		time='68h'
+		cpus='16'
+		memory='100 GB'
+	}
+	withName:featureCounts {
+	   	time='3d'
+		cpus='20'
+		memory='100 GB'
+	}
+}
+
+singularity {
+	    enabled = true
+	    runOptions = '--bind /projects/fs1/'	    
+}

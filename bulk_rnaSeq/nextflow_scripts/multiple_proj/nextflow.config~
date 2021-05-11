@@ -1,0 +1,85 @@
+// Configuration file for Bcl2Fastq analysis pipeline 
+
+params {
+
+       /* =====================
+       *   User defined params:
+       *  =====================
+       */
+
+	// Folder of experiment raw data
+	experiment = "/projects/fs1/nas-sync/upload/201103_A00681_0242_AHTLHNDRXX/"
+	workdir = "/projects/fs1/medpvb/proj/bulkRNA/201103_MV/0242_run/"
+
+	// Project ID (Can be any)
+	metaid = "201103_MV"
+	ssheet = "${workdir}/samplesheet.csv"
+
+	// References 
+	mouse_gtf = "/projects/fs1/medpvb/genomicData/mm10/gtf/gencode/gencode.vM25.annotation.gtf"
+	mouse_genome = "/projects/fs1/medpvb/genomicData/mm10/STAR/"
+        ref_genome_dir = "/opt/star_ref_index/"
+
+	// set Align/Quant
+	align = true
+	quant = true
+	demuxOnly = false
+	
+        // FeatureCounts params
+        gtf = "/opt/gencode.v33.annotation.gtf.gz" // HUMAN hg38 
+        stranded = 2
+        feature = 'exon'
+	paired = '-p' // leave blank ('') if not paired end. set to ('-p') if paired end
+
+       /* =============================
+       *   Automatically set params:
+       *  =============================
+       */
+
+
+	// Sample Sheet (Must be in directory defined above!)
+	sheetType = "normal"
+
+	// Directory to store fastq data etc.
+	// If not store in same dir where you run the pipeline, give entire path.
+
+ 	outDir = "${workdir}/CTG_output/"
+
+
+	// Lanes (Set 0 if all lanes should be included!)
+	lanes = 0
+
+	// Automatic assignment
+	sheet = "$ssheet"
+	fqDir = "${outDir}Fastq_raw/"
+	qcDir = "${outDir}QCdir/"
+	bamDir = "${outDir}STAR/"
+	quantDir = "${outDir}Quant/"
+}
+
+// Define SLURM specs
+process {
+	executor='slurm'
+	container = '/projects/fs1/medpvb/containers_singularity/bulkRNA/bulkRNA_STAR.sif'
+	time='60h'
+	cpus='16'
+	memory='100 GB'
+
+	withName:STAR {
+		time='68h'
+		cpus='16'
+		memory='100 GB'
+	}
+	withName:featureCounts {
+	   	time='3d'
+		cpus='20'
+		memory='100 GB'
+	}
+	
+}
+
+
+singularity {
+	    enabled = true
+	    runOptions = '--bind /projects/fs1/'	    
+}

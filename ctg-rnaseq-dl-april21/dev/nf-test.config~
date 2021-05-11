@@ -1,0 +1,71 @@
+
+
+params {
+
+
+  // Input  
+  workDir             = '/projects/fs1/shared/ctg-workdir/' 
+  deliveryDir         = '/projects/fs1/nas-sync/share/ctg-delivery/'
+  ctgqcDir            = '/peojects/fs1/shared/ctg-qc/'
+
+
+  // Container. Note STAR version must match STAR built reference
+  container           = '/projects/fs1/shared/containers_singularity/bulkRNA/rnaseqtools.dl.0.1.sif'
+
+  // STAR References
+  mouse_genome        = "/projects/fs1/shared/genomicData/mm10/STAR/star_ref_index/"
+  human_genome        = "/projects/fs1/shared/genomicData/hg38/STAR/star_2.7.6a/"
+
+  // GTFs
+  mouse_gtf           = "/projects/fs1/shares/genomicData/mm10/annotation/gtf/gencode/gencode.vM25.annotation.gtf"
+  human_gtf           = "/projects/fs1/shared/genomicData/hg38/annotation/gtf/gencode/v33/gencode.v33.annotation.gtf"
+
+  // Picard
+  picard_refFlat_hs   ="/projects/fs1/shared/genomicData/hg38/annotation/gtf/gencode/v33/gencode.vb33.annotation.refFlat"
+  picard_rRNA_hs      ="/projects/fs1/shared/genomicData/hg38/annotation/gtf/gencode/v33/rRNA.GRCh38.interval_list"
+  picard_refFlat_mm   ="/projects/fs1/shared/genomicData/mm10/annotation/gtf/gencode/gencode.vM25.annotation.refFlat"
+  picard_rRNA_mm      ="/projects/fs1/shared/genomicData/mm10/annotation/gtf/gencode/rRNA.vM25.interval_list"
+
+  // FastqScreen
+  fastqScreen_config  ="/projects/fs1/shared/genomicData/FastQ_Screen_Genomes/fastq_screen.conf"
+  
+
+
+  // processes defaults
+
+
+  // SLURM MISC //
+  // queue = '6nodes'
+
+
+
+}
+
+
+singularity{
+  enabled              = true	
+  runOptions           = '--bind /projects/fs1/'
+}
+
+
+process {
+  executor             = 'slurm'  
+  // queue = params.queue
+  time                 = 48.h
+  container            = params.container
+}
+
+
+
+
+profiles {
+  
+  aligned {
+
+  }
+
+  raw {
+
+  }
+
+}

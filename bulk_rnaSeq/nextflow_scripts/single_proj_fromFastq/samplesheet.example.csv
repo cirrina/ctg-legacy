@@ -1,0 +1,29 @@
+[Header],,,,,,,,,,
+IEMFileVersion,5,,,,,,,,,
+Experiment Name,CTGpool_0129,,,,,,,,,
+Date,11/2/2020,,,,,,,,,
+Workflow,GenerateFASTQ,,,,,,,,,
+Application,NovaSeq FASTQ Only,,,,,,,,,
+Instrument Type,NovaSeq,,,,,,,,,
+Assay,Illumina Stranded mRNA and SMART-Seq v4,,,,,,,,,
+Index Adapters,Mixed Indexes,,,,,,,,,
+Chemistry,Amplicon,,,,,,,,,
+,,,,,,,,,,
+[Reads],,,,,,,,,,
+102,,,,,,,,,,
+102,,,,,,,,,,
+,,,,,,,,,,
+[Settings],,,,,,,,,,
+Adapter,CTGTCTCTTATACACATCT,,,,,,,,,
+,,,,,,,,,,
+[Data],,,,,,,,,,
+Sample_ID,Sample_Name,Sample_Plate,Sample_Well,Index_Plate_Well,I7_Index_ID,index,I5_Index_ID,index2,Sample_Project,Description
+FL19_LOW,FL19_CD13low_P7,CTGpl_053,A04,A02,UDP0201,AACCGAGTTC,UDP0201,TCCAGAGATC,2020_122,SMART-Seq v4 Ultra Low Input RNA Kit and Nextera
+FL19_HIGH,FL19_CD13high_P8,CTGpl_053,B04,B02,UDP0202,TGTGATAACT,UDP0202,ATGGCGCCTG,2020_122,SMART-Seq v4 Ultra Low Input RNA Kit and Nextera
+FL17_LOW,FL17_CD13low_P7,CTGpl_053,C04,C02,UDP0203,AGTATGCTAC,UDP0203,GGTCTATTAA,2020_122,SMART-Seq v4 Ultra Low Input RNA Kit and Nextera
+FL17_HIGH,FL17_CD13high_P8,CTGpl_053,D04,D02,UDP0204,GTAACTGAAG,UDP0204,TCGCGACTCC,2020_122,SMART-Seq v4 Ultra Low Input RNA Kit and Nextera
+FL16_LOW,FL16_CD13low,CTGpl_053,E04,E02,UDP0205,TCCTCGGACT,UDP0205,CTCTGGCGTT,2020_122,SMART-Seq v4 Ultra Low Input RNA Kit and Nextera
+FL16_HIGH,FL16_CD13high,CTGpl_053,F04,F02,UDP0206,CTGGAACTGT,UDP0206,GTTAATTACG,2020_122,SMART-Seq v4 Ultra Low Input RNA Kit and Nextera
+FL18_LOW,FL18_CD13low,CTGpl_053,G04,G02,UDP0207,GAATATGCGG,UDP0207,TCAGTCTCGT,2020_122,SMART-Seq v4 Ultra Low Input RNA Kit and Nextera
+FL18_HIGH,FL18_CD13high,CTGpl_053,H04,H02,UDP0208,GATCGGATAA,UDP0208,CGGCCGATAC,2020_122,SMART-Seq v4 Ultra Low Input RNA Kit and Nextera
+Control_RNA,Control_RNA,,A02,A03,UDP0209,GCTAGACTAT,UDP0209,ATGTCGTATT,Control_RNA,SMART-Seq v4 Ultra Low Input RNA Kit and Nextera
